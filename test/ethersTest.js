@@ -122,10 +122,20 @@ describe('ERC223 Token Deployment + ERC223 Crowdsale ICO', () => {
         // THIS WORKS ONLY BECAUSE WE SWITCHED TO THE OLD WAY THAT ONLY REQUIRES THE TOKEN AND DOES NOT CHECK FOR MSG.SIG
     });
 
-
     it("should see that 15000 Tokens have been sent by the ICO Contract", async () => {
         const updatedIcoBalance = await icoInstance.checkBalance();
         expect(updatedIcoBalance.toString()).to.eq("4985000000000000000000000"); // 5 Million Tokens - 15.000 Tokens
     });
+
+    // it("should identify both transfer functions", async () => {
+    //     // const txToContract = await tokenInstance.transfer(icoInstance.address, "1000000000000000000000000", "0x")
+    //     console.log(await tokenInstance.functions)
+    //     console.log(await tokenInstance.functions["transfer"][0])
+    //     console.log(await tokenInstance.functions["transfer"][1])
+    //     const transfer1 = await tokenInstance["transfer[0]"](icoInstance.address, "1000000000000000000000000", "0x");
+    //     const transfer2 = await tokenInstance["transfer[1]"](icoInstance.address, "1000000000000000000000000", "0x");
+    //     console.log(transfer1)
+    //     console.log(transfer2)
+    // });
 
 });

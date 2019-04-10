@@ -1,14 +1,22 @@
 {
-  "name": "etherslime",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "ERC223 - etherlime test",
+  "version": "1.0.1",
+  "description": "ERC223 - ICO & Token Vesting - Function Overloading Tests",
+  "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "etherlime test",
+    "test": "etherlime test"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "erc223",
+    "ico",
+    "token",
+    "vesting",
+    "testing",
+    "dapp"
+  ],
+  "author": "liberalite@gmail.com",
+  "license": "MIT",
   "dependencies": {
     "etherlime": "^1.1.0"
   }
