@@ -1,7 +1,7 @@
 # ERC223-Solidity-v5-Tests
 Function Overloading &amp; SafeTransfer Tests using Ethers.js v4
 
-ERC223-Solidity-v5-Tests is a design pattern for creating ERC223 Vested Tokens ICO, aiming to simplify and maintain ERC223 Tokens with Solidity v5 without relayers/proxy/oracles.
+ERC223-Solidity-v5-Tests is a design pattern for creating ERC223 Vested Tokens ICO, aiming to simplify and maintain ERC223 Tokens with self governing contracts that do not use relayers/proxies/oracles.
 
 Setup:
 
