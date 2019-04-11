@@ -28,4 +28,4 @@ The only way i found to make transfers work is by rolling back to the old way Sa
 1. By removing the second transfer function ethers.js finally is happy and behaves acordingly.
 2. SafeERC223 is now restored to OpenZeppelin initial technique
 
-The transfer function checks if "to" is contract and if it is it populates an empty data bytes "0x" and sends the payload to the ReceiverContract aka ERC223Crowdsale. My only concern now is regarding if you actually want to send a data payload to make a transfer, does it breaks anything or is the perfect way to move forward using ERC223 Tokens ?
+The transfer function checks if "to" is contract and if it is it populates an empty data bytes "0x" and sends the data payload to the ReceiverContract aka ERC223Crowdsale. My only concern now is regarding if you actually want to send a data payload to make a transfer, does it still work on old wallets or if it does breaks anything. Still hoping this is the perfect way to move forward using ERC223 Tokens !
