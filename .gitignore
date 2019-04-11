@@ -77,3 +77,4 @@ typings/
 
 # Build folder
 build/
+.etherlime-store/.history.json
