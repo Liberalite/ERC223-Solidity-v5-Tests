@@ -17,13 +17,13 @@ library SafeERC223 {
     using SafeMath for uint256;
     using Address for address;
     
-    function safeTransfer(ERC223Interface token, address to, uint256 value) internal {
-        require(token.transfer(to, value));
-    }
-
     // function safeTransfer(ERC223Interface token, address to, uint256 value) internal {
-    //     callOptionalReturn(token, abi.encodeWithSelector(token.transfer.selector, to, value));
+    //     require(token.transfer(to, value));
     // }
+
+    function safeTransfer(ERC223Interface token, address to, uint256 value) internal {
+        callOptionalReturn(token, abi.encodeWithSelector(token.transfer.selector, to, value));
+    }
     
     // function safeTransfer(ERC223Interface token, address to, uint256 value) internal {
     //     callOptionalReturn(token, abi.encodeWithSelector(msg.sig, to, value));

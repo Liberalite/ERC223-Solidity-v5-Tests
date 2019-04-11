@@ -55,30 +55,7 @@ contract ERC223Token is ERC223Interface {
             receiver.tokenFallback(msg.sender, value, empty);
         }
         
-        emit Transfer(msg.sender, to, value, empty);
-        return true;
-    }
-    
-    function transfer(address to, uint256 value, bytes memory data) public returns (bool success) {
-        require(to != address(0));
-        require(value > 0 && balanceOf(msg.sender) >= value);
-        require(balanceOf(to).add(value) > balanceOf(to));
-        
-        uint256 codeLength;
-
-        assembly {
-            codeLength := extcodesize(to)
-        }
-
-        _balances[msg.sender] = _balances[msg.sender].sub(value);
-        _balances[to] = _balances[to].add(value);
-        
-        if(codeLength>0) {
-            ERC223ReceivingContract receiver = ERC223ReceivingContract(to);
-            receiver.tokenFallback(msg.sender, value, data);
-        }
-        
-        emit Transfer(msg.sender, to, value, data);
+        emit Transfer(msg.sender, to, value);
         return true;
     }
     

@@ -7,6 +7,21 @@ const ERC223Crowdsale = require('../build/ERC223Crowdsale.json');
 
 // console.log(assert)
 
+const expectThrow = async promise => {
+    try {
+        let result = await promise;
+        console.log(result);
+    } catch (error) {
+        const invalidJump = error.message.search('invalid JUMP') >= 0
+        const invalidOpcode = error.message.search('invalid opcode') >= 0
+        const outOfGas = error.message.search('out of gas') >= 0
+        const revert = error.message.search('revert') >= 0
+        assert(invalidJump || invalidOpcode || outOfGas || revert, "Expected throw, got '" + error + "' instead")
+        return
+    }
+    assert.fail('Expected throw not received')
+}
+
 describe('ERC223 Token Deployment + ERC223 Crowdsale ICO', () => {
     let provider = new ethers.providers.JsonRpcProvider("http://localhost:8545");
     let tokenInstance;
@@ -90,15 +105,6 @@ describe('ERC223 Token Deployment + ERC223 Crowdsale ICO', () => {
         // CHECK UPDATED BALANCE
         const updatedIcoBalance = await tokenInstance["balanceOf(address)"](icoInstance.address);
         expect(updatedIcoBalance.toString()).to.eq("5000000000000000000000000"); // 5M Tokens
-    });
-
-    it("should transfer tokens to ICO Contract using 3 parameters", async () => {
-        // SEND 100K TOKENS TO CONTRACT ADDRESS
-        const txToContract = await tokenInstance.transfer(icoInstance.address, "1000000000000000000000000", "0x")
-
-        // CHECK UPDATED BALANCE
-        const updatedIcoBalance = await tokenInstance["balanceOf(address)"](icoInstance.address);
-        expect(updatedIcoBalance.toString()).to.eq("6000000000000000000000000"); // 5M Tokens
     });
 
     it("should have ETH Balance greater than 10 ETH", async () => {
