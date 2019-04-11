@@ -76,4 +76,4 @@ typings/
 .fusebox/
 
 # Build folder
-build/
+build/*
