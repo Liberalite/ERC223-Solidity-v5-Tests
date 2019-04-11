@@ -23,7 +23,7 @@ Depending on the order inside the ABI we can see that transfer with 2 arguments 
 The only way i found to make transfers work is by rolling back to the old way SafeERC20 used to work which is ```require(token.transfer(to, value));```	
 
 
-### STRIPPED ERC223 INFO ###
+### STRIPPED-ERC223 BRANCH INFO ###
 1. By removing the second transfer function ethers.js finally is happy and behaves acordingly.
 2. SafeERC223 is now restored to OpenZeppelin initial technique
 
