@@ -5,6 +5,7 @@ import "./SafeMath.sol";
 import "./SafeERC223.sol";
 import "./ERC223Interface.sol";
 import "./ReentrancyGuard.sol";
+
 contract ERC223Crowdsale is ReentrancyGuard, Owned {
     using SafeMath for uint256;
     using SafeERC223 for ERC223Interface;
@@ -25,11 +26,11 @@ contract ERC223Crowdsale is ReentrancyGuard, Owned {
     mapping(address => bool) private _kyc;
     mapping(address => uint) public senderLimit;
 
+    // EVENT THAT WHEN SOMEONE HAS CONTRIBUTED TO THE PRE-SALE
     event TokensPurchased(address indexed purchaser, uint256 value, uint256 amount);
 
+    // DEPLOY PRE-SALE WITH TOKEN ADDRESS AND CONTRIBUTIONS WALLET
     constructor(ERC223Interface _token, address payable _wallet) public {
-        require(address(_token) != address(0));
-        require(address(_wallet) != address(0));
         token = _token;
         wallet = _wallet;
     }
@@ -57,28 +58,25 @@ contract ERC223Crowdsale is ReentrancyGuard, Owned {
 
     // PAYABLE FUNCTION
     function () external payable {
-        // buyTokens();
         buyTokens(msg.sender);
     }
     
-    //----------------------------------------------------
-    // 1,000 LVC == 1 ETH => 1 ETH + 50% BONUS = 1,500 LVC
-    //----------------------------------------------------
+    //----------------------------------------------------------
+    // 1 ETH = 1,000 TOKENS => 1 ETH + 50% BONUS = 1,500 TOKENS
+    //----------------------------------------------------------
     function buyTokens(address beneficiary) public nonReentrant payable {
-        require(checkBalance() != 0);
-        require(msg.sender == beneficiary);
+        require(checkBalance() > 0);
+        require(beneficiary == msg.sender);
+
         uint256 weiAmount = msg.value;
-        uint tokens;
+        uint tokens = weiAmount * 1500;
         
-        // PRESALE - 50% BONUS
-        tokens = weiAmount * 1500;
-            
         tokensSold = tokensSold.add(tokens);
         totalRaised = totalRaised.add(weiAmount);
-            
+
         _processPurchase(beneficiary, tokens);
         _forwardFunds();
-            
+
         senderLimit[beneficiary] = senderLimit[beneficiary].add(weiAmount);
             
         if(_kyc[beneficiary] == false){
