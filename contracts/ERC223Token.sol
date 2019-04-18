@@ -35,6 +35,15 @@ contract ERC223Token is ERC223Interface {
         return _balances[owner];
     }
     
+    /**
+     * @dev Transfer the specified amount of tokens to the specified address.
+     *      This function works the same with the previous one
+     *      but doesn't contain `_data` param.
+     *      Added due to backwards compatibility reasons.
+     *
+     * @param to    Receiver address.
+     * @param value Amount of tokens that will be transferred.
+    */
     function transfer(address to, uint256 value) public returns (bool success) {
         require(to != address(0));
         require(value > 0 && balanceOf(msg.sender) >= value);

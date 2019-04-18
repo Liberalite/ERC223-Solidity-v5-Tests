@@ -12,7 +12,7 @@ contract ERC223Crowdsale is ReentrancyGuard, Owned {
 
     // TOKEN INTERFACE,
     ERC223Interface private token;
-    
+
     // PRE-SALE WALLET
     address payable private wallet;
 
@@ -71,7 +71,7 @@ contract ERC223Crowdsale is ReentrancyGuard, Owned {
         uint256 weiAmount = msg.value;
         uint tokens = weiAmount * 1500;
         
-        tokensSold = tokensSold.add(tokens);
+        tokensSold  = tokensSold.add(tokens);
         totalRaised = totalRaised.add(weiAmount);
 
         _processPurchase(beneficiary, tokens);
@@ -79,7 +79,7 @@ contract ERC223Crowdsale is ReentrancyGuard, Owned {
 
         senderLimit[beneficiary] = senderLimit[beneficiary].add(weiAmount);
             
-        if(_kyc[beneficiary] == false){
+        if(_kyc[beneficiary] == false) {
             require(weiAmount >= .1 ether && weiAmount <= 25 ether && senderLimit[beneficiary] <= 25 ether);
         } else if (_kyc[beneficiary] == true) {
             require(weiAmount >= .1 ether && weiAmount <= 100 ether && senderLimit[beneficiary] <= 100 ether);
